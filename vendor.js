@@ -9,8 +9,8 @@ function intervalFunc() {
     storeName: process.env.STORE_NAME || 'storeName',
     orderId: faker.random.uuid(),
     customerName: faker.name.findName(),
-    address: faker.address.city()
-  }
+    address: faker.address.city(),
+  };
   events.emit('pickup', obj);
 }
 setInterval(intervalFunc, 5000);
@@ -18,3 +18,4 @@ setInterval(intervalFunc, 5000);
 events.on('delivered', (payload) => {
   console.log(`VENDOR : Thank you for delivering ${payload.orderId}`);
 });
+

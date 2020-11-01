@@ -8,17 +8,17 @@ function log(event, payload) {
 }
 
 events.on('pickup',(payload)=>{
-  log('pickup' ,payload )
-})
+  log('pickup' ,payload );
+});
 events.on('in-transit',(payload)=>{
-  log('in-transit' ,payload )
-})
+  log('in-transit' ,payload );
+});
 
 require('./driver');
 require('./vendor');
 
 events.on('delivered',(payload)=>{
-  log('delivered' ,payload )
-})
+  log('delivered' ,payload );
+});
 
 module.exports = events;

@@ -5,7 +5,7 @@ const events = require('./events');
 events.on('pickup', (payload) => {
   setTimeout(myFunc1, 1000, payload);
   setTimeout(myFunc2, 4000, payload);
-})
+});
 
 // helper function
 function myFunc1(payload) {
@@ -13,6 +13,6 @@ function myFunc1(payload) {
   events.emit('in-transit', payload);
 }
 function myFunc2(payload){
-  console.log(`DRIVER: delivered up ${payload.orderId}`)
+  console.log(`DRIVER: delivered up ${payload.orderId}`);
   events.emit('delivered', payload);
 }

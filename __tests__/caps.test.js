@@ -2,7 +2,7 @@
 const events = require('../caps');
 jest.spyOn(global.console,'log');
 
-describe('Main Hub Application Caps',()=>{
+xdescribe('Main Hub Application Caps',()=>{
   it('log on subscribe to pickup event',()=>{
     events.emit('pickup','test');
     expect(console.log).toHaveBeenCalled();

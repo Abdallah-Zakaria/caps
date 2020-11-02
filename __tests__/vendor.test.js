@@ -1,7 +1,7 @@
 'use strict';
 const events = require('../caps');
 
-describe('Vendor Module',()=>{
+xdescribe('Vendor Module',()=>{
   beforeEach(() => {
     jest.spyOn(global.console,'log');
     jest.useFakeTimers();

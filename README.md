@@ -7,7 +7,9 @@
   - `npm i  dotenv `
   - add .env file 
   - pass your STORE_NAME
-  - start the server `node caps.js`
+  - open first terminal and start the server `node caps.js`
+  - open second terminal and start the server `node vender.js`
+  - open third terminal and start the server `node driver.js`
 
 ## Test 
   - `npm i jest` then `npm test`

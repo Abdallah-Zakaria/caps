@@ -1,39 +1,29 @@
-const net = require('net');
-const uuidv4 = require('uuid').v4;
-const PORT = process.env.PORT || 4000;
+'use strict';
+const io = require('socket.io')(4000);
 
-const server = net.createServer();
-server.listen(PORT, () => console.log(`Server is running on ${PORT}`));
-const socketPool = {};
-
-server.on('connection', (socket) => {
+const caps = io.of('/caps');
+caps.on('connection', (socket) => {
+  console.log('Welcome to the Global connection', socket.id);
   console.log('Socket Connected!');
-  const id = `socket-${uuidv4()}`;
-  socketPool[id] = socket;
-  socket.on('data', (buffer) => dispatchEvent(buffer));
-  socket.on('error', (e) => console.log('SOCKET ERROR', e.message));
-  socket.on('end', (id) => delete socketPool[id]);
+  socket.on('join', (room) => {
+    socket.join(room);
+  });
+  socket.on('pickup', (payload) => {
+    log('pickup', payload);
+    caps.emit('pickup', payload);
+  });
+  socket.on('in-transit', (payload) => {
+    log('in-transit', payload);
+    caps.emit('in-transit', payload);
+  });
+  socket.on('delivered', (payload) => {
+    log('delivered', payload);
+    caps.to(payload.storeName).emit('delivered', payload);
+  });
+  socket.on('error', (payload) => {
+    console.log('error', payload);
+  });
 });
-
-server.on('error', (e) => console.log('SERVER ERROR', e.message));
-
-function dispatchEvent(buffer) {
-  for (let socket in socketPool) {
-    socketPool[socket].write(buffer);
-  }
-
-  const data = JSON.parse(buffer.toString().trim());
-  if(data.event == 'pickup'){
-    log('pickup',data);
-  }
-  if(data.event == 'in-transit'){
-    log('in-transit',data);
-  }
-  if(data.event == 'delivered'){
-    log('delivered',data);
-  }
-}
-
 function log(event, payload) {
-  console.log('EVENT',{ event, time: new Date(), payload });
+  console.log('EVENT', { event, time: new Date(), payload });
 }

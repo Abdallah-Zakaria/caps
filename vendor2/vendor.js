@@ -19,7 +19,7 @@ caps.on('connect', () => {
       address: faker.address.city(),
     };
     caps.emit('pickup', payload);
-  }, 5000);
+  }, 8000);
 
   caps.on('delivered', (payload) => {
     console.log(`Thanks you for delivering ${payload.orderId}`);
